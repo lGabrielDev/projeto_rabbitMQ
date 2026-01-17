@@ -17,7 +17,7 @@ public class OrdersProducer {
           }
 
           public void sendOrder(Order order){
-               System.out.println(String.format("Order '%s' and sent to the PAYMENT PROCESSING queue...\n", order));
+               System.out.println(String.format("Order '%s' received and sent to the PAYMENT PROCESSING queue...\n", order));
                this.rabbitTemplate.convertAndSend(RabbitConfigs.ORDERS_EXCHANGE, RabbitConfigs.PAYMENT_PROCESSING_ROUTING_KEY, order);
           }
 }

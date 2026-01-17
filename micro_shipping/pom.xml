@@ -63,6 +63,7 @@
 	</dependencies>
 
 	<build>
+          <finalName>micro_shipping</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

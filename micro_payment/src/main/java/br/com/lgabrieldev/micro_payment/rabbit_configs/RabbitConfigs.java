@@ -20,6 +20,14 @@ public class RabbitConfigs {
      public static final String APPROVED_PAYMENT_SHIPPING_QUEUE = "approved_payment_shipping_queue"; 
      public static final String APPROVED_PAYMENT_NOTIFICATION_QUEUE = "approved_payment_notification_queue";
 
+
+     //criamos essa fila só em caso do microservice 'orders' nao subir primeiro
+     @Bean
+     public Queue generatePaymentProcessingQueue(){
+          return new Queue(PAYMENT_PROCESSING_QUEUE);
+     } 
+     
+
      @Bean
      public FanoutExchange generatePaymentExchange(){
           return new FanoutExchange(PAYMENT_EXCHANGE);

@@ -1,0 +1,68 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq_container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${ENV_FILE_RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${ENV_FILE_RABBITMQ_PASSWORD}
+
+
+  micro_order:
+    build: ./micro_orders
+    image: micro_order_image
+    container_name: micro_order_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
+      # Criamos variavies de ambiente dentro do container. Assim, o Spring consegue ler esses valores no aplication properties.
+      # compose consegue ler do arquivo .env
+      # aplication.properties/nossa aplicacao consegue ler do compose.
+      # Lembrando que o aplication.properties não consegue ler de arquivo .env
+    environment: 
+      RABBITMQ_USER: ${ENV_FILE_RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${ENV_FILE_RABBITMQ_PASSWORD}
+
+
+  micro_payment:
+    build: ./micro_payment
+    image: micro_payment_image
+    container_name: micro_payment_container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - rabbitmq
+    environment: 
+      RABBITMQ_USER: ${ENV_FILE_RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${ENV_FILE_RABBITMQ_PASSWORD}
+
+
+  micro_notification:
+    build: ./micro_notification
+    image: micro_notification
+    container_name: micro_notification_container
+    ports:
+      - "8082:8082"
+    depends_on:
+      - rabbitmq
+    environment: 
+      RABBITMQ_USER: ${ENV_FILE_RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${ENV_FILE_RABBITMQ_PASSWORD}
+
+
+  micro_shipping:
+      build: ./micro_shipping
+      image: micro_shipping_image
+      container_name: micro_shipping_container
+      ports:
+        - "8083:8083"
+      depends_on:
+        - rabbitmq
+      environment: 
+        RABBITMQ_USER: ${ENV_FILE_RABBITMQ_USER}
+        RABBITMQ_PASSWORD: ${ENV_FILE_RABBITMQ_PASSWORD}
+
+
