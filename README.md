@@ -32,19 +32,19 @@ Este projeto simula um fluxo de processamento de pedidos utilizando microserviç
 
 Fluxo Resumido do Projeto:
 
-1. Usuário cria um pedido via rota POST no Orders Service.
+1. Usuário cria um pedido via rota POST no Micro_Orders.
 
-2. Orders envia o pedido para a fila de análise de pagamento.
+2. Micro_Orders envia o pedido para a fila de análise de pagamento.
 
-3. Payment Service consome a mensagem da fila, processa o pagamento e envia o resultado para:
+3. Micro_Payment consome a mensagem da fila, processa o pagamento e envia o resultado para:
 
      1. Fila de notificação para pagamentos aprovados (para notificar o usuário)
 
      1. Fila de envio para pagamentos aprovados (se aprovado, para despachar o pedido)
 
-4. Notification Service envia a notificação ao usuário sobre o status do pedido.
+4. Micro_Notification envia a notificação ao usuário sobre o status do pedido.
 
-5. Shipping Service simula o envio do pedido.
+5. Micro_Shipping simula o envio do pedido.
 
 <hr>
 <br>
@@ -71,16 +71,6 @@ Fluxo Resumido do Projeto:
 | POST   | `http://localhost:8080/orders`      |         Criação de pedidos via microserviço Orders        | 200 |
 
 
-
-<hr>
-<br>
-
-## Documentação no Swagger
-
-![swagger image example](src/main/resources/static/img/swagger_image.png)	
-
-<br>
-
 <hr>
 <br>
 
@@ -97,35 +87,33 @@ Fluxo Resumido do Projeto:
 
 1. Clone esse repositório
     ```bash
-    git clone https://github.com/lGabrielDev/projeto_viaCEP
+    git clone https://github.com/lGabrielDev/projeto_rabbitMQ
     ```
 <br>
 
 2. Vá ao diretorio
 
-    ```bash
-    cd projeto_viaCEP
-    ```
+     ```bash
+     cd projeto_rabbitMQ
+     ```
 
 <br>
 
 3. Atribua os valores nas variáveis de ambiente
 
-    <img alt="environment variables image example" src="src/main/resources/static/img/env_image.png" width="350px">
+    <img alt="environment variables image example" src="./imgs/credenciais_rabbit.png" width="350px">
 
 <br>
 
-4.  Rode os comandos de execução:
+4. Suba os containers
 
-    ```bash
-     mvn clean package -DskipTests;  # Compila o código Java e gera o arquivo .jar
-     docker pull openjdk:17-ea-10-jdk;  # Baixa a imagem base do OpenJDK 17.
-     docker compose up --build; # Constrói as imagens Docker e sobe os containers
-    ```
+     ```bash
+     docker compose up --build;
+     ```
 
 <br>
 
-5. Acesse o swagger: `http://localhost:8080/swagger.html`
+5. Acesse o swagger: `http://localhost:8080/swagger-ui.html`
 
 <hr>
 <br>
@@ -138,15 +126,14 @@ Fluxo Resumido do Projeto:
 
 <p>As imagens usadas nesse projeto foram retiradas dos seguintes sites:</p>
 
-- [viaCEP](https://viacep.com.br/)
 - [shields.io](https://shields.io/)
 - [iconfinder](https://www.iconfinder.com/)
 - [storyset](https://storyset.com/)
 - [vecteezy](https://www.vecteezy.com)
 
+     <br>
 
-
-<span>Thanks!</span>
+     <span>Thanks!</span>
 
 <hr>
 <br>
@@ -155,17 +142,8 @@ Fluxo Resumido do Projeto:
 <!-- License -->
 ## <img src="https://cdn4.iconfinder.com/data/icons/jetflat-2-multimedia-vol-3/60/0042_049_license_agreement_file_document_paper_page_sheet-512.png" alt="todo list image icon" width="40px" align="center"> Licença --> MIT
 
-O projeto está sob a licença do [MIT](LICENSE).
+O projeto está sob a licença do [MIT](./LICENSE.txt).
 
 <hr>
 <br>
 
-<!-- Author -->
-## <img src="https://cdn1.iconfinder.com/data/icons/office-work-3/200/copywriting-512.png" alt="todo list image icon" width="40px" align="center"> Autor
-
-<br>
-
-<div align="center">
-    <img src="src/main/resources/static/img/avatar_circular.png" alt="profile avatar" width="150px">
-    <p> <a href="https://github.com/lGabrielDev">Gabriel Freitas</a> 😎 </p>
-</div>
