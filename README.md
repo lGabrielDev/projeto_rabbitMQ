@@ -1,6 +1,6 @@
 <!-- title -->
 <h1 align="center">
-    <span>Projeto ViaCEP</span>
+    <span>Sistema de Pedidos</span>
 </h1>
 
 <br>
